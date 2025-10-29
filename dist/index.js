@@ -8,7 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config({ path: '.env' });
 // Set DATABASE_URL explicitly if not loaded
 if (!process.env.DATABASE_URL) {
-    process.env.DATABASE_URL = 'postgresql://postgres:87064465@localhost:5432/hr?schema=public';
+    process.env.DATABASE_URL = 'postgresql://neondb_owner:npg_cbHgZ5PSkaD3@ep-blue-paper-adkqzq45-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require';
 }
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));

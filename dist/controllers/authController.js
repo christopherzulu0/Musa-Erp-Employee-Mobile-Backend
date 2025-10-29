@@ -38,8 +38,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const jwt = __importStar(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const jwt = __importStar(require("jsonwebtoken"));
 const prisma_1 = require("../lib/prisma");
 // Load environment variables
 dotenv_1.default.config({ path: '.env' });
@@ -230,25 +230,6 @@ class AuthController {
                 include: {
                     employee: {
                         include: {
-                            department: true,
-                            manager: {
-                                select: {
-                                    firstName: true,
-                                    lastName: true,
-                                    email: true
-                                }
-                            }
-                        },
-                        select: {
-                            id: true,
-                            employeeId: true,
-                            firstName: true,
-                            lastName: true,
-                            phone: true,
-                            location: true,
-                            position: true,
-                            departmentId: true,
-                            hireDate: true,
                             department: true,
                             manager: {
                                 select: {

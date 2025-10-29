@@ -33,7 +33,7 @@ const getCurrentShift = async (req, res) => {
                 startDate: 'desc'
             }
         });
-        if (!currentAssignment) {
+        if (!currentAssignment || !currentAssignment.shift) {
             return res.json({
                 success: true,
                 data: null
@@ -121,7 +121,9 @@ const getShiftHistory = async (req, res) => {
                 startDate: 'desc'
             }
         });
-        const history = assignments.map(assignment => ({
+        const history = assignments
+            .filter(assignment => assignment.shift !== null)
+            .map(assignment => ({
             id: assignment.id,
             shiftName: assignment.shift.name,
             startDate: assignment.startDate,

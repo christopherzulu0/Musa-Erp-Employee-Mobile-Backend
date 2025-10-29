@@ -44,5 +44,7 @@ const router = express_1.default.Router();
 router.use(auth_1.authenticateToken);
 // Update profile
 router.put('/update', profileController.updateProfile);
+// Change password
+router.put('/password', profileController.changePassword);
 exports.default = router;
 //# sourceMappingURL=profile.js.map
