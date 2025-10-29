@@ -78,6 +78,7 @@ model Employee {
   lastName             String
   email                String                     @unique
   phone                String?
+  location             String?
   dateOfBirth          DateTime?
   hireDate             DateTime
   status               EmployeeStatus             @default(ACTIVE)
@@ -206,15 +207,17 @@ model Shift {
 }
 
 model ShiftAssignment {
-  id         String    @id @default(cuid())
+  id         String     @id @default(cuid())
   employeeId String
-  shiftId    String
+  shiftId    String?
+  shiftTypeId String?
   startDate  DateTime
   endDate    DateTime?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  employee   Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
-  shift      Shift     @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  employee   Employee   @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  shift      Shift?     @relation(fields: [shiftId], references: [id], onDelete: SetNull)
+  shiftType  ShiftType? @relation(fields: [shiftTypeId], references: [id], onDelete: SetNull)
 
   @@map("shift_assignments")
 }
@@ -630,6 +633,7 @@ model ShiftType {
   employeeCount   Int           @default(0)
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
+  shiftAssignments ShiftAssignment[]
 
   @@map("shift_types")
 }

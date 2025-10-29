@@ -37,7 +37,7 @@ export const getCurrentShift = async (req: Request, res: Response) => {
       }
     });
 
-    if (!currentAssignment) {
+    if (!currentAssignment || !currentAssignment.shift) {
       return res.json({
         success: true,
         data: null
@@ -135,13 +135,15 @@ export const getShiftHistory = async (req: Request, res: Response) => {
       }
     });
 
-    const history = assignments.map(assignment => ({
-      id: assignment.id,
-      shiftName: assignment.shift.name,
-      startDate: assignment.startDate,
-      endDate: assignment.endDate,
-      status: assignment.endDate && assignment.endDate < new Date() ? 'COMPLETED' : 'ACTIVE'
-    }));
+    const history = assignments
+      .filter(assignment => assignment.shift !== null)
+      .map(assignment => ({
+        id: assignment.id,
+        shiftName: assignment.shift!.name,
+        startDate: assignment.startDate,
+        endDate: assignment.endDate,
+        status: assignment.endDate && assignment.endDate < new Date() ? 'COMPLETED' : 'ACTIVE'
+      }));
 
     res.json({ success: true, data: history });
   } catch (error) {
